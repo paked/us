@@ -61,6 +61,11 @@ typedef double    real64;
 // `psize` represents a good middleground: the "p" stands for "pointer".
 typedef size_t psize;
 
+// TODO(harrison): Memory helpers
+
+void us_memcpy(void* from, void* to, psize len);
+void us_memset(void *to, int value, psize len);
+
 // TODO(harrison): Memory allocation
 
 void* us_alloc(psize size);
@@ -72,7 +77,54 @@ struct us_MemoryPool;
 
 void us_MemoryPool_init(us_MemoryPool* pool);
 
+// TODO(harrison): Rune helpers
+bool us_isSpace(char c) {
+  // TODO(harrison): handle other types of spaces
+
+  return c == ' ';
+}
+
+bool us_isDigit(char c) {
+  return c >= '0' && c <= '9';
+}
+
+bool us_isNewline(char c) {
+  return c == '\n';
+}
+
 // TODO(harrison): String manipulation
 
-// TODO(harrison): Rune helpers
-bool us_is_space(char c);
+// TODO(harrison): String parsing
+
+int us_parseInt(char* start, psize len) {
+  int num = 0;
+  psize i = 0;
+
+  bool negative = false;
+
+  while (i < len) {
+    char c = start[i];
+
+    if (i == 0 && c == '-') {
+      negative = true;
+
+      i += 1;
+
+      continue;
+    }
+
+    assert(us_isDigit(c));
+
+    int digit = c - '0';
+
+    num = (num * 10) + digit;
+
+    i += 1;
+  }
+
+  if (negative) {
+    num *= -1;
+  }
+
+  return num;
+}
