@@ -44,6 +44,9 @@
  * harder to read.
  */
 
+#include <stddef.h>
+#include <stdint.h>
+
 typedef int8_t    int8;
 typedef int16_t   int16;
 typedef int32_t   int32;
@@ -113,7 +116,11 @@ int us_parseInt(char* start, psize len) {
       continue;
     }
 
-    assert(us_isDigit(c));
+    if (!us_isDigit(c)) {
+      // TODO(harrison): implement some sort of failure case
+
+      return 0;
+    }
 
     int digit = c - '0';
 
