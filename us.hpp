@@ -91,6 +91,10 @@ bool us_isDigit(char c) {
   return c >= '0' && c <= '9';
 }
 
+bool us_isLetter(char c) {
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+}
+
 bool us_isNewline(char c) {
   return c == '\n';
 }
