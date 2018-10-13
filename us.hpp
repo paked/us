@@ -80,6 +80,18 @@ struct us_MemoryPool;
 
 void us_MemoryPool_init(us_MemoryPool* pool);
 
+// TODO(harrison): Number helpers
+bool us_abs(float a) {
+  if (a < 0) {
+    a *= -1;
+  }
+
+  return a;
+}
+bool us_equals(float a, float b, real32 e=0.001) {
+  return us_abs(b - a) < e;
+}
+
 // TODO(harrison): Rune helpers
 bool us_isSpace(char c) {
   // TODO(harrison): handle other types of spaces
